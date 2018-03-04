@@ -42,6 +42,18 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 		// TO DO: complete this method to log results
 	}
 
+	@Override
+	public void intermediateHouseResult(DicePair dicePair, GameEngine gameEngine) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void houseResult(DicePair result, GameEngine gameEngine) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	// TO DO: complete the GameEngineCallback interface implementation
 
 }
