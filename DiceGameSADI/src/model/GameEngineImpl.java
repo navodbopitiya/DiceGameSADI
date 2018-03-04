@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import model.interfaces.GameEngine;
@@ -14,11 +15,13 @@ import model.interfaces.Player;
  *
  */
 public class GameEngineImpl implements GameEngine {
+	
+	Collection<Player> allPlayers = new ArrayList<Player>();
+	Collection<GameEngineCallback> allGameEngineCallbacks = new ArrayList<GameEngineCallback>();
 
 	@Override
 	public boolean placeBet(Player player, int bet) {
-		// TODO Auto-generated method stub
-		return false;
+		return player.placeBet(bet);
 	}
 
 	@Override
@@ -35,38 +38,40 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public void addPlayer(Player player) {
-		// TODO Auto-generated method stub
+		allPlayers.add(player); //Add player to allPlayers ArrayList
 		
 	}
 
 	@Override
 	public Player getPlayer(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Player checkPlayer = null;
+		for(Player player : allPlayers){ // Iterate through the Array List
+			if(player.getPlayerId().equals(id)){ //Check if player ID matches the ID of the player we want to get
+				checkPlayer = player; //If true, set checkPlayer to the player we got
+			}
+		}
+		return checkPlayer; //return the player if found, or return null
 	}
 
 	@Override
 	public boolean removePlayer(Player player) {
-		// TODO Auto-generated method stub
-		return false;
+		return allPlayers.remove(player); //return false if no player found, true if player removed
 	}
 
 	@Override
 	public void addGameEngineCallback(GameEngineCallback gameEngineCallback) {
-		// TODO Auto-generated method stub
+		allGameEngineCallbacks.add(gameEngineCallback); //Add gameEngineCallback to ArrayList allGameEngineCallbacks
 		
 	}
 
 	@Override
 	public boolean removeGameEngineCallback(GameEngineCallback gameEngineCallback) {
-		// TODO Auto-generated method stub
-		return false;
+		return allGameEngineCallbacks.remove(gameEngineCallback); //Remove gameEngineCallback from ArrayList allGameEngineCallbacks
 	}
 
 	@Override
 	public Collection<Player> getAllPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return allPlayers;
 	}
 
 }

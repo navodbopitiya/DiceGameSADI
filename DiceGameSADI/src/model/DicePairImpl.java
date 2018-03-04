@@ -10,23 +10,32 @@ import model.interfaces.DicePair;
  *
  */
 public class DicePairImpl implements DicePair {
+	
+	int dice1, dice2, numFaces;
+	
+	public DicePairImpl(int dice1, int dice2, int numFaces){
+		//TODO - this is wrong! Randomize the numbers here.
+		this.dice1 = dice1;
+		this.dice2 = dice2;
+		this.numFaces = numFaces;
+	}
 
 	@Override
 	public int getDice1() {
-		// TODO Auto-generated method stub
-		return 0;
+		//Returns value of Dice One
+		return this.dice1;
 	}
 
 	@Override
 	public int getDice2() {
-		// TODO Auto-generated method stub
-		return 0;
+		//Returns value of Dice Two
+		return this.dice2;
 	}
 
 	@Override
 	public int getNumFaces() {
-		// TODO Auto-generated method stub
-		return 0;
+		//Returns number of faces of the die
+		return this.numFaces;
 	}
 
 }
