@@ -32,6 +32,7 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 		// intermediate results logged at Level.FINE
 		logger.log(Level.FINE, "Intermediate data to log .. String.format() is good here!");
 		// TO DO: complete this method to log results
+		logger.log(Level.INFO, dicePair.toString());
 	}
 
 	@Override
@@ -45,6 +46,7 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 	@Override
 	public void intermediateHouseResult(DicePair dicePair, GameEngine gameEngine) {
 		// TODO Auto-generated method stub
+		logger.log(Level.INFO, dicePair.toString());
 		
 	}
 

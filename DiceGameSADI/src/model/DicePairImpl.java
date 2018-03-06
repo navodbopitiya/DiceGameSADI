@@ -11,7 +11,7 @@ import model.interfaces.DicePair;
  */
 public class DicePairImpl implements DicePair {
 	
-	int dice1, dice2, numFaces;
+	private int dice1, dice2, numFaces;
 	
 	public DicePairImpl(int dice1, int dice2, int numFaces){
 		//TODO - this is wrong! Randomize the numbers here.
@@ -36,6 +36,11 @@ public class DicePairImpl implements DicePair {
 	public int getNumFaces() {
 		//Returns number of faces of the die
 		return this.numFaces;
+	}
+	
+	public String toString(){
+		
+		return dice1+" "+dice2;
 	}
 
 }

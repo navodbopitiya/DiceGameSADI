@@ -11,9 +11,9 @@ import model.interfaces.Player;
  *
  */
 public class SimplePlayer implements Player {
-	String playerId, playerName;
-	int points, bet;
-	DicePair dicePair;
+	private String playerId, playerName;
+	private int points, bet;
+	private DicePair dicePair;
 
 	public SimplePlayer(String playerId, String playerName, int initialPoints) {
 		this.playerId = playerId;
