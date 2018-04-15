@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,32 +31,35 @@ public class GameEngineCallbackImpl implements GameEngineCallback
 	public void intermediateResult(Player player, DicePair dicePair, GameEngine gameEngine)
 	{
 		// intermediate results logged at Level.FINE
-		logger.log(Level.FINE, "Intermediate data to log .. String.format() is good here!");
-		// TO DO: complete this method to log results
-		logger.log(Level.INFO, dicePair.toString());
+		logger.log(Level.FINE, player.getPlayerName() + ": ROLLING "+ dicePair.toString());
+		
 	}
 
 	@Override
 	public void result(Player player, DicePair result, GameEngine gameEngine)
 	{
 		// final results logged at Level.INFO
-		logger.log(Level.INFO, "Result data to log .. String.format() is good here!");
-		// TO DO: complete this method to log results
+		logger.log(Level.INFO, player.getPlayerName()+" *RESULT* "+result.toString());
+		
 	}
 
 	@Override
 	public void intermediateHouseResult(DicePair dicePair, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
-		logger.log(Level.INFO, dicePair.toString());
-		
+		logger.log(Level.FINE, "House: ROLLING "+dicePair.toString());
 	}
-
+	
 	@Override
 	public void houseResult(DicePair result, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
+		logger.log(Level.INFO, "House *RESULT* "+result.toString());
+		displayResults(gameEngine.getAllPlayers());
 		
 	}
+	
+	private void displayResults(Collection<Player> players){
+		for(Player player : players){
+			logger.log(Level.INFO, player.toString());
+		}
+	}
 
-	// TO DO: complete the GameEngineCallback interface implementation
 
 }

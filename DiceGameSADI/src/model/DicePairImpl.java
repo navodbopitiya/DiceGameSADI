@@ -14,7 +14,6 @@ public class DicePairImpl implements DicePair {
 	private int dice1, dice2, numFaces;
 	
 	public DicePairImpl(int dice1, int dice2, int numFaces){
-		//TODO - this is wrong! Randomize the numbers here.
 		this.dice1 = dice1;
 		this.dice2 = dice2;
 		this.numFaces = numFaces;
@@ -39,8 +38,9 @@ public class DicePairImpl implements DicePair {
 	}
 	
 	public String toString(){
-		
-		return dice1+" "+dice2;
+		//Returns a human readable string
+		int total = dice1 + dice2;
+		return "Dice 1: "+dice1+",  Dice 2: "+dice2+" .. Total: "+total;
 	}
 
 }

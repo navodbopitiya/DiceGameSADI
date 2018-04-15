@@ -5,6 +5,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 import model.interfaces.DicePair;
@@ -18,6 +19,7 @@ import model.interfaces.Player;
  */
 public class GameEngineImpl implements GameEngine {
 	
+	private final int NO_BET = 0;
 	private Collection<Player> allPlayers = new ArrayList<Player>();
 	private Collection<GameEngineCallback> allGameEngineCallbacks = new ArrayList<GameEngineCallback>();
 
@@ -28,10 +30,9 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public void rollPlayer(Player player, int initialDelay, int finalDelay, int delayIncrement) {
-		// TODO Auto-generated method stub
 		int delay = initialDelay;
 		while(delay < finalDelay){
-			DicePair tempDice = new DicePairImpl(randomNumber(NUM_FACES),randomNumber(NUM_FACES),NUM_FACES);
+			DicePair tempDice = new DicePairImpl(randomNumber(NUM_FACES),randomNumber(NUM_FACES),NUM_FACES); //roll dice
 			delay += delayIncrement; //Increasing delay
 			for(GameEngineCallback gameEngineCallback : allGameEngineCallbacks){ //calling intermediateResult on all gameEngineCallbacks
 				gameEngineCallback.intermediateResult(player, tempDice, this);
@@ -58,11 +59,10 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public void rollHouse(int initialDelay, int finalDelay, int delayIncrement) {
-		// TODO Auto-generated method stub
 		int delay = initialDelay;
 		DicePair houseDice = null;
 		while(delay < finalDelay){
-			DicePair tempDice = new DicePairImpl(randomNumber(NUM_FACES),randomNumber(NUM_FACES),NUM_FACES);
+			DicePair tempDice = new DicePairImpl(randomNumber(NUM_FACES),randomNumber(NUM_FACES),NUM_FACES); //roll dice
 			delay += delayIncrement;
 			for(GameEngineCallback gameEngineCallback : allGameEngineCallbacks){ //calling intermediateHouseResult on all gameEngineCallbacks
 				gameEngineCallback.intermediateHouseResult(tempDice, this);
@@ -71,11 +71,14 @@ public class GameEngineImpl implements GameEngine {
 			delayDiceRoll(delay);
 			
 		}
+		
+		calculateResults(houseDice); //calculate results after house finishes rolling
+		
 		for(GameEngineCallback gameEngineCallback : allGameEngineCallbacks){ //calling result on all gameEngineCallbacks
 			gameEngineCallback.houseResult(houseDice, this);
 		}
 		
-		calculateResults(houseDice);
+		
 		
 		
 		
@@ -84,7 +87,7 @@ public class GameEngineImpl implements GameEngine {
 	private void calculateResults(DicePair houseDice) {
 		//Calculate winner
 		for(Player checkPlayer : allPlayers){
-			if(checkPlayer.getBet() != 0){
+			if(checkPlayer.getBet() != NO_BET){
 				//Player has a bet
 				//Check player's dice against house's dice
 				if(calculateDicePair(checkPlayer.getRollResult()) < calculateDicePair(houseDice)){
@@ -92,26 +95,23 @@ public class GameEngineImpl implements GameEngine {
 					//Remove bet from current points of the player
 					checkPlayer.setPoints(checkPlayer.getPoints() - checkPlayer.getBet());
 					//Reset player's bet to zero
-					checkPlayer.placeBet(0);
+					checkPlayer.placeBet(NO_BET);
 				}else if(calculateDicePair(checkPlayer.getRollResult()) > calculateDicePair(houseDice)){
 					//If player's dice has a value more than the house
 					//Add bet to the current points of the player
 					checkPlayer.setPoints(checkPlayer.getPoints() + checkPlayer.getBet());
 					//Reset player's bet to zero
-					checkPlayer.placeBet(0);
+					checkPlayer.placeBet(NO_BET);
 				}else{
-					//If draw, players bets are returned - TODO
-					checkPlayer.placeBet(0);
+					//If draw, players bets are returned and bet is reset
+					checkPlayer.placeBet(NO_BET); //setting the current bet to zero
 				}
 			}
-		}
-		
-		for(GameEngineCallback gameEngineCallback : allGameEngineCallbacks){
-			gameEngineCallback.houseResult(houseDice, this);
 		}
 	}
 	
 	public int calculateDicePair(DicePair dicePair){
+		//returns the sum of the dice pair
 		return dicePair.getDice1() + dicePair.getDice2();
 	}
 
@@ -150,7 +150,7 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public Collection<Player> getAllPlayers() {
-		return allPlayers;
+		return Collections.unmodifiableCollection(allPlayers);
 	}
 	
 	public int randomNumber(int num_faces){

@@ -58,7 +58,6 @@ public class SimplePlayer implements Player {
 		if(this.points < bet){
 			return false;
 		}else{
-			points -= bet; //reducing bet from total points
 			this.bet = bet; //setting the current bet to placed bet
 			return true;
 		}
@@ -80,6 +79,13 @@ public class SimplePlayer implements Player {
 	public void setRollResult(DicePair rollResult) {
 		//sets roll result
 		this.dicePair = rollResult;
+		
+	}
+	
+	@Override
+	public String toString(){
+		//Returns a human readable string
+		return "ID = "+playerId+", Name = "+playerName+", Points = "+points;
 		
 	}
 
