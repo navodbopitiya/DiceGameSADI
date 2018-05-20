@@ -1,10 +1,10 @@
 package client;
 
-import model.GameEngineCallbackImpl;
 import model.GameEngineImpl;
 import model.SimplePlayer;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
+import view.GameEngineCallbackImpl;
 
 /**
  * Simple console client for SADI assignment 1, 2018
