@@ -3,6 +3,7 @@ package controller;
 import javax.swing.SwingUtilities;
 
 import model.GameEngineImpl;
+import model.GameHelperMethods;
 import model.interfaces.DicePair;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
@@ -55,9 +56,9 @@ public class GameController {
 			this.currentPlayer = gameEngine.getAllPlayers().iterator().next();
 			gameMenu = new GameMenu();
 			menuBarController = new MenuBarController(gameController, gameMenu.getMainMenuBar());
-			toolbarController = new ToolbarController(gameController, gameMenu.getToolbar());
 			mainPanelController = new MainPanelController(gameController, gameMenu.getMainPanel());
 			statusBarController = new StatusbarController(gameController, gameMenu.getStatusBar());
+			toolbarController = new ToolbarController(gameController, gameMenu.getToolbar());
 			gameEngine.addGameEngineCallback(new GameEngineCallbackImpl());
 			gameEngine.addGameEngineCallback(new GameEngineCallbackGUI(mainPanelController, statusBarController,gameController));
 
@@ -75,13 +76,10 @@ public class GameController {
 	}
 
 	public boolean placeBet(int betAmount, Player player) {
-		System.out.println("Betting - Controller");
-		System.out.println(player);
 		return gameEngine.placeBet(player, betAmount);
 	}
 
 	public void roll() {
-		System.out.println("Rolling - Controller");
 		boolean checkIfAnyPlayerHasBet = false;
 		// For All player's that have a bet, roll
 		for (final Player playerToBeRolled : gameEngine.getAllPlayers()) {
@@ -103,17 +101,16 @@ public class GameController {
 			gameEngine.rollHouse(1, 1000, 100);
 
 		} else {
-			gameMenu.getToolbar().showErrorMessage("Please place a bet for a player first");
+			GameHelperMethods.showErrorMessage("Please place a bet for a player first",null);
 		}
 
 	}
 
 	public void changeCurrentPlayer(Player playerToChange) {
-		currentPlayer = playerToChange;
+		this.currentPlayer = playerToChange;
 		mainPanelController.changePlayer(this.currentPlayer);
 		toolbarController.changePlayer(this.currentPlayer);
 		statusBarController.updateCurrentPlayerDetails();
-		System.out.println("Switched current player to: " + currentPlayer.getPlayerName());
 
 	}
 
@@ -128,7 +125,6 @@ public class GameController {
 
 	public void switchToMainMenu() {
 		gameMenu.setVisible(false);
-		System.out.println("YOU ARE IN SWITCHING");
 		mainMenuController.switchToMainMenu();
 	}
 

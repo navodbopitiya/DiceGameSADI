@@ -38,9 +38,12 @@ public class MainPanelController {
 
 	public void displayHouseDiceResults(DicePair dicePair) {
 		mainPanel.displayHouseDiceResults(dicePair);
+		if(gameController.getCurrentPlayer().getRollResult() != null){
+			/*Display custom resultBar only if current player is rolling or has rolled*/
 		mainPanel.displayResultBar(
 				GameHelperMethods.calculateResults(dicePair, gameController.getCurrentPlayer().getRollResult()),
 				gameController.getCurrentPlayer().getPlayerName());
+		}
 	}
 
 	public GameController getGameController() {

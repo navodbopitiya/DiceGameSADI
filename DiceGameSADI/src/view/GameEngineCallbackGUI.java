@@ -65,6 +65,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
 			@Override
 			public void run() {
+				mainPanelController.displayPlayerDiceResults(gameController.getCurrentPlayer().getRollResult());
 				mainPanelController.displayHouseDiceResults(dicePair);
 				statusBarController.setAction("House rolling");
 
@@ -81,7 +82,8 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
 			@Override
 			public void run() {
-
+				
+				mainPanelController.displayPlayerDiceResults(gameController.getCurrentPlayer().getRollResult());
 				mainPanelController.displayHouseDiceResults(result);
 				statusBarController.updateCurrentPlayerDetails();
 				statusBarController.updateGameDetails();

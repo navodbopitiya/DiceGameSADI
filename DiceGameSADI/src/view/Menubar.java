@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import model.GameConstants;
 
@@ -26,7 +27,7 @@ public class Menubar extends JMenuBar{
 		addPlayerItem = new JMenuItem("Add Player");
 		addPlayerItem.setActionCommand(GameConstants.ADD_PLAYER_ACTION);
 		betItem = new JMenuItem("Bet");
-		betItem.setActionCommand(GameConstants.BET_BUTTON_ACTION);
+		betItem.setActionCommand(GameConstants.BET_BUTTON_MENU_ACTION);
 		rollItem = new JMenuItem("Roll");
 		rollItem.setActionCommand(GameConstants.ROLL_BUTTON_ACTION);
 		
@@ -50,6 +51,10 @@ public class Menubar extends JMenuBar{
 			playerMenu.add(playerItem);
 		}
 		
+	}
+	
+	public String showBetDialog(){
+		return JOptionPane.showInputDialog(this, "Please enter a bet", "Bet", JOptionPane.QUESTION_MESSAGE);
 	}
 	
 	public void addActionListener(ActionListener listenToMenubar){

@@ -17,7 +17,7 @@ public class MenuBarController {
 	public MenuBarController(GameController gameController, Menubar menuBar) {
 		this.gameController = gameController;
 		this.menuBar = menuBar;
-		menuBar.addActionListener(new MenuBarListener());
+		menuBar.addActionListener(new ButtonListener(gameController,menuBar));
 		updatePlayers();
 	}
 
@@ -55,25 +55,5 @@ public class MenuBarController {
 			}
 
 		}
-	}
-
-	class MenuBarListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			// Check what Item was clicked
-			System.out.println("SOME ACTION WAS CLICKED IN MENUBAR");
-			String actionCommand = event.getActionCommand();
-			if (actionCommand.equals(GameConstants.ADD_PLAYER_ACTION)) {
-				/* Add Player Item */
-				System.out.println("YOU ARE IN ADD PLAYER ITEM IN MENUBAR");
-				gameController.switchToMainMenu();
-			} else if (actionCommand.equals(GameConstants.BET_BUTTON_ACTION)) {
-				/*Bet Item -TODO*/
-			} else if (actionCommand.equals(GameConstants.ROLL_BUTTON_ACTION)) {
-				/*Roll Item - TODO*/
-			}
-		}
-
 	}
 }

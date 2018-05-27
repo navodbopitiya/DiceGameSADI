@@ -3,6 +3,10 @@
  */
 package model;
 
+import java.awt.Component;
+
+import javax.swing.JOptionPane;
+
 import model.interfaces.DicePair;
 
 /**
@@ -31,7 +35,15 @@ public class GameHelperMethods {
 		 * it due to assignment specification
 		 */
 		// returns the sum of the dice pair
-		return dicePair.getDice1() + dicePair.getDice2();
+		if (dicePair != null) {
+			return dicePair.getDice1() + dicePair.getDice2();
+		} else {
+			return 0;
+		}
+	}
+
+	public static void showErrorMessage(String errorMessage, Component component) {
+		JOptionPane.showMessageDialog(component, errorMessage);
 	}
 
 }

@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import controller.GameController;
+import model.ComboBoxPlayer;
 import model.GameConstants;
 import model.interfaces.Player;
 
@@ -60,10 +61,10 @@ public class Toolbar extends JToolBar {
 		this.add(btnBet);
 	}
 
-	public void updatePlayers(Collection<Player> playerList) {
+	public void updatePlayers(Collection<ComboBoxPlayer> playerList) {
 		/*Update player list*/
 		switchPlayerBox.removeAllItems();
-		for (Player player : playerList) {
+		for (ComboBoxPlayer player : playerList) {
 			switchPlayerBox.addItem(player);
 		}
 	}
@@ -81,10 +82,6 @@ public class Toolbar extends JToolBar {
 	
 	public void addItemListener(ItemListener itemListener){
 		switchPlayerBox.addItemListener(itemListener);
-	}
-	
-	public void showErrorMessage(String errorMessage){
-		JOptionPane.showMessageDialog(null, errorMessage);
 	}
 	
 	public String getBetText(){

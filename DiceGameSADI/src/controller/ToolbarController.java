@@ -1,13 +1,14 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import javax.swing.JOptionPane;
 
-import model.GameConstants;
+
+import model.ComboBoxPlayer;
+import model.SimplePlayer;
 import model.interfaces.Player;
 import view.Toolbar;
 
@@ -19,25 +20,32 @@ public class ToolbarController {
 	public ToolbarController(GameController gameController, Toolbar toolbar) {
 		this.gameController = gameController;
 		this.toolbar = toolbar;
-		toolbar.addActionListener(new ToolbarListener());
+		toolbar.addActionListener(new ButtonListener(toolbar, gameController));
 		toolbar.addItemListener(new PlayerItemListener());
 		updatePlayers();
 	}
 	
-	private boolean placeBet(int betAmount, Player player) {
-		return gameController.placeBet(betAmount, player);
-	}
-	
 	public void updatePlayers(){
-		toolbar.updatePlayers(gameController.getGameEngine().getAllPlayers());
+		Collection<ComboBoxPlayer> comboPlayerList = new ArrayList<ComboBoxPlayer>();
+		for(Player player : gameController.getGameEngine().getAllPlayers()){
+			comboPlayerList.add(new ComboBoxPlayer(player));
+		}
+		toolbar.updatePlayers(comboPlayerList);
 	}
 	
 	public void changePlayer(Player player){
 		toolbar.changePlayer(player);
 	}
 	
-	private void changeCurrentPlayer(Player player) {
-		gameController.changeCurrentPlayer(player);
+	private void changeCurrentPlayer(ComboBoxPlayer comboBoxPlayer) {
+		Player playerToChange = null;
+		for(Player player : gameController.getGameEngine().getAllPlayers()){
+
+			if(player.getPlayerId().equals(comboBoxPlayer.getPlayerId())){
+				playerToChange = player;
+			}
+		}
+		gameController.changeCurrentPlayer(playerToChange);
 	}
 	
 	class PlayerItemListener implements ItemListener{
@@ -47,65 +55,15 @@ public class ToolbarController {
 			
 			if (event.getStateChange() == ItemEvent.SELECTED) {
 				/*If new player selected, change the current player to selected player */
-				if (gameController.getCurrentPlayer() != toolbar.getPlayerBox().getSelectedItem()) {
-					changeCurrentPlayer((Player) toolbar.getPlayerBox().getSelectedItem());
+				ComboBoxPlayer testComboPlayer = (ComboBoxPlayer) toolbar.getPlayerBox().getSelectedItem();
+				/*Check if player already assigned as current player*/
+				if (!gameController.getCurrentPlayer().getPlayerId().equals(testComboPlayer.getPlayerId())) {
+					/*If not assign current player*/
+					changeCurrentPlayer((ComboBoxPlayer) toolbar.getPlayerBox().getSelectedItem());
 				}
 			}
 		}
 		
 	}
 	
-	class ToolbarListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			String actionCommand = event.getActionCommand();
-			
-			if(actionCommand.equals(GameConstants.BET_BUTTON_ACTION)){
-				
-				/*Bet Action*/
-				int betAmount;
-				if (!toolbar.getBetText().isEmpty()) {
-					if (GameConstants.PATTERN.matcher(toolbar.getBetText()).matches()) {
-						betAmount = Integer.parseInt(toolbar.getBetText());
-						if (betAmount != GameConstants.BET_ZERO) {
-							if (gameController.getCurrentPlayer() != null) {
-								if (placeBet(betAmount, gameController.getCurrentPlayer())) {
-									toolbar.showErrorMessage("Bet placed successfully");
-									toolbar.resetBetTextField(); 
-									gameController.updateStatusBar();
-								} else {
-									toolbar.showErrorMessage("Invalid Bet");
-								}
-
-							} else {
-								toolbar.showErrorMessage("Please select a player first");
-							}
-						} else {
-							toolbar.showErrorMessage("Please enter a value greater than zero");
-						}
-					} else {
-						toolbar.showErrorMessage("Please enter a positive numeric value");
-					}
-				} else {
-					toolbar.showErrorMessage("Please enter a bet first");
-				}
-				
-			}else if(actionCommand.equals(GameConstants.ROLL_BUTTON_ACTION)){
-				/*Roll Action*/
-				if (gameController.getCurrentPlayer() != null) {
-					new Thread() {
-						public void run() {
-							gameController.roll();
-						}
-					}.start();
-				} else {
-					JOptionPane.showMessageDialog(null, "Please select a player first");
-				}
-			}
-		}
-		
-	}
-	
-
 }
