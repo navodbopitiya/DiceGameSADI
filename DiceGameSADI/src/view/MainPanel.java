@@ -39,5 +39,9 @@ public class MainPanel extends JSplitPane{
 	public void displayDiceResults(DicePair dicePair){
 		dicePanel.updateDiceUI(dicePair);
 	}
+	
+	public void updatePlayerResults(Player currentPlayer){
+		resultsPanel.setBalance(Integer.toString(currentPlayer.getPoints()));
+	}
 
 }

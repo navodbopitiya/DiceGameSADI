@@ -13,6 +13,7 @@ public class MainPanelController {
 	{
 		this.setGameController(gameController);
 		this.mainPanel = mainPanel;
+		changePlayer(gameController.getCurrentPlayer());
 		
 	}
 	
@@ -31,5 +32,9 @@ public class MainPanelController {
 
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
+	}
+	
+	public void updatePlayerResults(Player currentPlayer){
+		mainPanel.updatePlayerResults(currentPlayer);
 	}
 }

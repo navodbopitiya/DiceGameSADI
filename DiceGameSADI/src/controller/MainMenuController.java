@@ -24,7 +24,7 @@ public class MainMenuController {
 	public MainMenuController(GameController gameController, MainMenuView mainMenuView) {
 		this.gameController = gameController;
 		this.mainMenuView = mainMenuView;
-		
+
 		this.mainMenuView.addActionListener(new MainMenuListener());
 
 	}
@@ -37,12 +37,15 @@ public class MainMenuController {
 
 			if (actionCommand.equals(GameConstants.PLAY_BUTTON_ACTION)) {
 				/* Play Button Action */
-				
-				/*Check if a player has been entered - TODO */
-				
-				/* Open next Window */
-				mainMenuView.setVisible(false);
-				gameController.startGame();			
+
+				/* Check if a player has been entered - TODO */
+				if (playerList.isEmpty()) {
+					mainMenuView.showErrorMessage("Please enter a player first");
+				} else {
+					/* Open next Window */
+					mainMenuView.setVisible(false);
+					gameController.startGame();
+				}
 
 			} else if (actionCommand.equals(GameConstants.ADD_PLAYER_ACTION)) {
 				/* Add Player Button Action */

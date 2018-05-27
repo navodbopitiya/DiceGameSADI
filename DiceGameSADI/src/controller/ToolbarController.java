@@ -74,6 +74,7 @@ public class ToolbarController {
 								if (placeBet(betAmount, gameController.getCurrentPlayer())) {
 									toolbar.showErrorMessage("Bet placed successfully");
 									toolbar.resetBetTextField(); 
+									gameController.updateStatusBar();
 								} else {
 									toolbar.showErrorMessage("Invalid Bet");
 								}

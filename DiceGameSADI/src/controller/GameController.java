@@ -86,6 +86,11 @@ public class GameController {
 		if (checkIfAnyPlayerHasBet) {
 			// After all player's have finished rolling, roll house
 			gameEngine.rollHouse(1, 100, 20);
+			//Update Status Bar and ResultsPanel
+			updateStatusBar();
+			updatePlayerResults();
+			
+
 		} else {
 			gameMenu.getToolbar().showErrorMessage("Please place a bet for a player first");
 		}
@@ -101,8 +106,12 @@ public class GameController {
 
 	}
 	
-	public void updatePlayerBalances(){
-		
+	public void updateStatusBar(){
+		statusBarController.updateCurrentPlayerDetails(this.currentPlayer);
+	}
+	
+	public void updatePlayerResults(){
+		mainPanelController.updatePlayerResults(this.currentPlayer);
 	}
 
 	public Player getCurrentPlayer() {
