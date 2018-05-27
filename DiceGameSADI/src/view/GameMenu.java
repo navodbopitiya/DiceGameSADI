@@ -6,32 +6,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.MenuBar;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-
-import controller.GameController;
-import controller.MenuBarController;
-import controller.ToolbarController;
-import model.SimplePlayer;
-import model.interfaces.GameEngine;
-import model.interfaces.Player;
 
 /**
  * @author Navod Bopitiya

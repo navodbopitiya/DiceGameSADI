@@ -1,12 +1,9 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
-
-import model.GameConstants;
 import model.interfaces.Player;
 import view.Menubar;
 

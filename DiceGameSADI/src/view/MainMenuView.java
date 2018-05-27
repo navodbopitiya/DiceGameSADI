@@ -2,15 +2,10 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,11 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.GameController;
 import model.GameConstants;
-import model.SimplePlayer;
-import model.interfaces.GameEngine;
-import model.interfaces.Player;
 
 /**
  * @author Navod Bopitiya

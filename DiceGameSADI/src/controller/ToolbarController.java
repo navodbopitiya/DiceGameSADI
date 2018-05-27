@@ -1,14 +1,11 @@
 package controller;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
 
 
 import model.ComboBoxPlayer;
-import model.SimplePlayer;
 import model.interfaces.Player;
 import view.Toolbar;
 
@@ -21,7 +18,7 @@ public class ToolbarController {
 		this.gameController = gameController;
 		this.toolbar = toolbar;
 		toolbar.addActionListener(new ButtonListener(toolbar, gameController));
-		toolbar.addItemListener(new PlayerItemListener());
+		toolbar.addItemListener(new PlayerItemListener(gameController, toolbar, this));
 		updatePlayers();
 	}
 	
@@ -34,10 +31,11 @@ public class ToolbarController {
 	}
 	
 	public void changePlayer(Player player){
-		toolbar.changePlayer(player);
+		ComboBoxPlayer playerToChange = new ComboBoxPlayer(player);
+		toolbar.changePlayer(playerToChange);
 	}
 	
-	private void changeCurrentPlayer(ComboBoxPlayer comboBoxPlayer) {
+	void changeCurrentPlayer(ComboBoxPlayer comboBoxPlayer) {
 		Player playerToChange = null;
 		for(Player player : gameController.getGameEngine().getAllPlayers()){
 
@@ -46,24 +44,6 @@ public class ToolbarController {
 			}
 		}
 		gameController.changeCurrentPlayer(playerToChange);
-	}
-	
-	class PlayerItemListener implements ItemListener{
-		/*Listener for switch player*/
-		@Override
-		public void itemStateChanged(ItemEvent event) {
-			
-			if (event.getStateChange() == ItemEvent.SELECTED) {
-				/*If new player selected, change the current player to selected player */
-				ComboBoxPlayer testComboPlayer = (ComboBoxPlayer) toolbar.getPlayerBox().getSelectedItem();
-				/*Check if player already assigned as current player*/
-				if (!gameController.getCurrentPlayer().getPlayerId().equals(testComboPlayer.getPlayerId())) {
-					/*If not assign current player*/
-					changeCurrentPlayer((ComboBoxPlayer) toolbar.getPlayerBox().getSelectedItem());
-				}
-			}
-		}
-		
 	}
 	
 }

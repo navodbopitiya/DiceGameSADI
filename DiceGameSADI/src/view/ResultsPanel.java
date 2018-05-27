@@ -8,24 +8,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.interfaces.Player;
-
 @SuppressWarnings("serial")
 public class ResultsPanel extends JPanel{
 	
 	private JPanel playerNamePanel;
-	private JPanel wonPanel;
-	private JPanel lostPanel;
 	private JPanel balancePanel;
 	
 	private JLabel playerNamelbl;
 	private JLabel playerName;
-	private JLabel wonLabel;
-	private JLabel lostLabel;
 	private JLabel balanceLabel;
 	
-	private JLabel wonAmount;
-	private JLabel lostAmount;
 	private JLabel balanceAmount;
 	
 	public ResultsPanel(){
@@ -74,11 +66,4 @@ public class ResultsPanel extends JPanel{
 		balanceAmount.repaint();
 	}
 	
-	public void setWonAmount(String pointsWon){
-		wonAmount.setText(pointsWon);
-	}
-	
-	public void setLostAmount(String pointsLost){
-		lostAmount.setText(pointsLost);
-	}
 }

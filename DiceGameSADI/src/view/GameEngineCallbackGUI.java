@@ -5,7 +5,6 @@ import javax.swing.SwingUtilities;
 import controller.GameController;
 import controller.MainPanelController;
 import controller.StatusbarController;
-import model.GameConstants;
 import model.interfaces.DicePair;
 import model.interfaces.GameEngine;
 import model.interfaces.GameEngineCallback;
@@ -24,7 +23,8 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 	}
 
 	@Override
-	public void intermediateResult(Player player, final DicePair dicePair, GameEngine gameEngine) {
+	public void intermediateResult(Player player,  DicePair dicePair, GameEngine gameEngine) {
+		final DicePair playerResult = dicePair;
 		/*If current player is equal to the player being rolled right now, display on screen using a new thread*/
 		if (gameController.getCurrentPlayer().equals(player)) {
 			SwingUtilities.invokeLater(new Runnable() {
@@ -32,7 +32,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 				@Override
 				public void run() {
 
-					mainPanelController.displayPlayerDiceResults(dicePair);
+					mainPanelController.displayPlayerDiceResults(playerResult);
 					statusBarController.setAction("Rolling player");
 				}
 			});
@@ -41,15 +41,16 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 	}
 
 	@Override
-	public void result(Player player, final DicePair result, GameEngine gameEngine) {
+	public void result(Player player,  DicePair result, GameEngine gameEngine) {
 		/*Display current user result*/
+		final DicePair playerResult = result;
 		if (gameController.getCurrentPlayer().equals(player)) {
 			SwingUtilities.invokeLater(new Runnable() {
 
 				@Override
 				public void run() {
 
-					mainPanelController.displayPlayerDiceResults(result);
+					mainPanelController.displayPlayerDiceResults(playerResult);
 
 				}
 			});
@@ -58,15 +59,15 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 	}
 
 	@Override
-	public void intermediateHouseResult(final DicePair dicePair, GameEngine gameEngine) {
+	public void intermediateHouseResult(DicePair dicePair, GameEngine gameEngine) {
 		/*Display house intermediate results for all players*/
-
+		final DicePair houseResult = dicePair;
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
 				mainPanelController.displayPlayerDiceResults(gameController.getCurrentPlayer().getRollResult());
-				mainPanelController.displayHouseDiceResults(dicePair);
+				mainPanelController.displayHouseDiceResults(houseResult);
 				statusBarController.setAction("House rolling");
 
 			}
@@ -75,7 +76,8 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 	}
 
 	@Override
-	public void houseResult(final DicePair result, GameEngine gameEngine) {
+	public void houseResult(DicePair result, GameEngine gameEngine) {
+		final DicePair houseResult = result;
 		/*Display final house result for all players*/
 		gameController.setHouseResult(result);
 		SwingUtilities.invokeLater(new Runnable() {
@@ -84,7 +86,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 			public void run() {
 				
 				mainPanelController.displayPlayerDiceResults(gameController.getCurrentPlayer().getRollResult());
-				mainPanelController.displayHouseDiceResults(result);
+				mainPanelController.displayHouseDiceResults(houseResult);
 				statusBarController.updateCurrentPlayerDetails();
 				statusBarController.updateGameDetails();
 				mainPanelController.updatePlayerResults();
