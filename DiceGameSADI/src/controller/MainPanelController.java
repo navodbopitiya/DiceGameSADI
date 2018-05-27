@@ -28,6 +28,12 @@ public class MainPanelController {
 			 */
 			mainPanel.changePlayer(player, GameHelperMethods.calculateResults(gameController.getHouseResult(),
 					gameController.getCurrentPlayer().getRollResult()));
+		} else {
+			/*
+			 * When player has intermediate roll results, and house doesn't have
+			 * roll result
+			 */
+			mainPanel.changePlayer(player);
 		}
 
 	}
@@ -38,11 +44,14 @@ public class MainPanelController {
 
 	public void displayHouseDiceResults(DicePair dicePair) {
 		mainPanel.displayHouseDiceResults(dicePair);
-		if(gameController.getCurrentPlayer().getRollResult() != null){
-			/*Display custom resultBar only if current player is rolling or has rolled*/
-		mainPanel.displayResultBar(
-				GameHelperMethods.calculateResults(dicePair, gameController.getCurrentPlayer().getRollResult()),
-				gameController.getCurrentPlayer().getPlayerName());
+		if (gameController.getCurrentPlayer().getRollResult() != null) {
+			/*
+			 * Display custom resultBar only if current player is rolling or has
+			 * rolled
+			 */
+			mainPanel.displayResultBar(
+					GameHelperMethods.calculateResults(dicePair, gameController.getCurrentPlayer().getRollResult()),
+					gameController.getCurrentPlayer().getPlayerName());
 		}
 	}
 

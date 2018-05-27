@@ -66,7 +66,6 @@ public class Toolbar extends JToolBar {
 
 	public void changePlayer(ComboBoxPlayer player) {
 		/*Set selected player to current player*/
-		System.out.println(player);
 		switchPlayerBox.setSelectedItem(player);
 	}
 

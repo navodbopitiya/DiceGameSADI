@@ -30,7 +30,7 @@ public class MainPanel extends JSplitPane{
 	}
 	
 	public void changePlayer(Player player){
-		/*When player has no roll result*/
+		/*When player has no roll result or intermediate roll results*/
 		resultsPanel.setPlayerName(player.getPlayerName());
 		resultsPanel.setBalance(Integer.toString(player.getPoints()));
 		dicePanel.updateDiceUI(player.getRollResult(),dicePanel.getPlayerDiceOneImage(), dicePanel.getPlayerDiceTwoImage());
