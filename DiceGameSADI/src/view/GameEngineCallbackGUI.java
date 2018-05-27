@@ -25,7 +25,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
 	@Override
 	public void intermediateResult(Player player, final DicePair dicePair, GameEngine gameEngine) {
-
+		/*If current player is equal to the player being rolled right now, display on screen using a new thread*/
 		if (gameController.getCurrentPlayer().equals(player)) {
 			SwingUtilities.invokeLater(new Runnable() {
 
@@ -42,7 +42,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
 	@Override
 	public void result(Player player, final DicePair result, GameEngine gameEngine) {
-
+		/*Display current user result*/
 		if (gameController.getCurrentPlayer().equals(player)) {
 			SwingUtilities.invokeLater(new Runnable() {
 
@@ -59,7 +59,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
 	@Override
 	public void intermediateHouseResult(final DicePair dicePair, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
+		/*Display house intermediate results for all players*/
 
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -75,7 +75,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
 	@Override
 	public void houseResult(final DicePair result, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
+		/*Display final house result for all players*/
 		gameController.setHouseResult(result);
 		SwingUtilities.invokeLater(new Runnable() {
 

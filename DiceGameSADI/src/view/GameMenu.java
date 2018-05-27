@@ -40,15 +40,13 @@ import model.interfaces.Player;
 @SuppressWarnings("serial")
 public class GameMenu extends JFrame{
 	
-	private GameController gameController;
 	private Toolbar toolbar;
 	private Menubar menuBar;
 	private MainPanel mainPanel;
 	private Statusbar statusBar;
 	
 	
-	public GameMenu(GameController gameController) {
-		this.gameController = gameController;
+	public GameMenu() {
 		initialize();
 	}
 	
@@ -63,27 +61,23 @@ public class GameMenu extends JFrame{
 		this.getContentPane().setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
 		
-		/*Add Menubar to frame*/
+		/*Create Menubar and add to frame*/
 		menuBar = new Menubar();
 		this.setJMenuBar(menuBar);
 		
-		/*Add toolbar to Frame*/
+		/*Create and add toolbar to Frame*/
 		toolbar = new Toolbar();
 		this.getContentPane().add(toolbar, BorderLayout.NORTH);
 		
-		/*Add MainPanel to Frame*/
+		/*Create and add MainPanel to Frame*/
 		mainPanel = new MainPanel();
 		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		
-		/*Add StatusBar to Frame*/
+		/*Create and add StatusBar to Frame*/
 		statusBar = new Statusbar();
 		this.getContentPane().add(statusBar, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
-	}
-	
-	public JFrame getFrame(){
-		return this;
 	}
 	
 	public MainPanel getMainPanel(){

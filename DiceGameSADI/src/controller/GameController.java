@@ -29,15 +29,17 @@ public class GameController {
 	}
 
 	public GameController() {
+		/*Main entrance of Game*/
 		currentPlayer = null;
 		gameController = this;
 		gameEngine = new GameEngineImpl();
 		mainMenu = new MainMenuView();
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				// Run UI code on a new thread
+				/*Open MainMenu and make a new Main Menu controller*/
 				mainMenu.initialize();
 				mainMenuController = new MainMenuController(gameController, mainMenu);
 			}
@@ -47,9 +49,11 @@ public class GameController {
 
 	public void startGame() {
 		if (gameMenu == null) {
-			// If the application is starting
+			/*If the game is starting for the first time
+			 *Create Game Menu and controllers - passing references
+			 *Add callbacks to GameEngine*/
 			this.currentPlayer = gameEngine.getAllPlayers().iterator().next();
-			gameMenu = new GameMenu(this);
+			gameMenu = new GameMenu();
 			menuBarController = new MenuBarController(gameController, gameMenu.getMainMenuBar());
 			toolbarController = new ToolbarController(gameController, gameMenu.getToolbar());
 			mainPanelController = new MainPanelController(gameController, gameMenu.getMainPanel());
@@ -58,7 +62,9 @@ public class GameController {
 			gameEngine.addGameEngineCallback(new GameEngineCallbackGUI(mainPanelController, statusBarController,gameController));
 
 		} else {
-			// When player goes back to add more players
+			/*After user adds new players from MainMenu and comes back to GameMenu
+			 *Update players and details on menubar, toolbar and statusbar
+			 *open GameMenu*/
 			menuBarController.updatePlayers();
 			toolbarController.updatePlayers();
 			statusBarController.updateGameDetails();
@@ -94,7 +100,7 @@ public class GameController {
 		if (checkIfAnyPlayerHasBet) {
 			setHouseResult(null);
 			/*After all player's have finished rolling, roll house*/
-			gameEngine.rollHouse(1, 100, 20);
+			gameEngine.rollHouse(1, 1000, 100);
 
 		} else {
 			gameMenu.getToolbar().showErrorMessage("Please place a bet for a player first");
@@ -121,7 +127,7 @@ public class GameController {
 	}
 
 	public void switchToMainMenu() {
-		gameMenu.getFrame().setVisible(false);
+		gameMenu.setVisible(false);
 		System.out.println("YOU ARE IN SWITCHING");
 		mainMenuController.switchToMainMenu();
 	}

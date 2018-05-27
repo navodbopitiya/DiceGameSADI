@@ -28,7 +28,10 @@ import model.interfaces.Player;
 
 /**
  * @author Navod Bopitiya
- * @studentId s3617221 Apr 14, 2018 MainMenuView.java Describe:
+ * @studentId s3617221 
+ * Apr 14, 2018
+ * MainMenuView.java 
+ * Describe:
  */
 
 @SuppressWarnings("serial")
@@ -52,22 +55,22 @@ public class MainMenuView extends JFrame {
 		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		this.setLocationRelativeTo(null);
 
-		Color bgBlue = new Color(27, 91, 127);
+		
 
 		/* Panel for player text input */
 		JPanel playerTextPanel = new JPanel();
 		playerTextPanel.setLayout(new BoxLayout(playerTextPanel, BoxLayout.LINE_AXIS));
-		playerTextPanel.setBackground(bgBlue);
+		playerTextPanel.setBackground(GameConstants.BG_BLUE);
 
 		/* Panel for player betting points input */
 		JPanel pointsPanel = new JPanel();
 		pointsPanel.setLayout(new BoxLayout(pointsPanel, BoxLayout.LINE_AXIS));
-		pointsPanel.setBackground(bgBlue);
+		pointsPanel.setBackground(GameConstants.BG_BLUE);
 
 		/* Panel for buttons */
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
-		buttonPanel.setBackground(bgBlue);
+		buttonPanel.setBackground(GameConstants.BG_BLUE);
 
 		/* Label for Player Text Field */
 		JLabel lblPlayer = new JLabel("Player Name");
@@ -99,7 +102,7 @@ public class MainMenuView extends JFrame {
 		GridLayout gridLayout = new GridLayout(0, 4);
 		playerPanel = new JPanel();
 		playerPanel.setLayout(gridLayout);
-		playerPanel.setBackground(bgBlue);
+		playerPanel.setBackground(GameConstants.BG_BLUE);
 		
 		/* Add button */
 		btnAddPlayer = new JButton("Add Player");
@@ -125,10 +128,6 @@ public class MainMenuView extends JFrame {
 		this.getContentPane().add(playerPanel);
 		this.setVisible(true);
 
-	}
-	
-	public JFrame getFrame(){
-		return this;
 	}
 	
 	public void addActionListener(ActionListener listenForButtonPress){
@@ -158,6 +157,7 @@ public class MainMenuView extends JFrame {
 	}
 	
 	public void switchToMainMenu(){
+		/*Used to switch from Game Menu to this, when adding new players after playing Game*/
 		this.setVisible(true);
 	}
 

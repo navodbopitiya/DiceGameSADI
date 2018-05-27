@@ -47,10 +47,9 @@ public class MenuBarController {
 					playerToChange = player;
 				}
 			}
-
+			
+			/*Check if player was present in gameEngine*/
 			if (playerToChange != null) {
-				/*GameEngine had the player*/
-				System.out.println("CHANGING PLAYERS");
 				gameController.changeCurrentPlayer(playerToChange);
 				
 			}

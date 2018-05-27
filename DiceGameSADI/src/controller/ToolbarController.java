@@ -37,12 +37,11 @@ public class ToolbarController {
 	}
 	
 	private void changeCurrentPlayer(Player player) {
-		System.out.println("YOU ARE CURRENTLY IN TOOLBAR CONTROLLER - CHANGE CURRENT PLAYER");
 		gameController.changeCurrentPlayer(player);
 	}
 	
 	class PlayerItemListener implements ItemListener{
-
+		/*Listener for switch player*/
 		@Override
 		public void itemStateChanged(ItemEvent event) {
 			

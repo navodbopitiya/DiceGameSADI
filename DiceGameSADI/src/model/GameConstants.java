@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.awt.Color;
 import java.util.regex.Pattern;
 
 /**
@@ -22,6 +23,7 @@ public class GameConstants {
 	public static final String HOUSE_WON = "Lost";
 	public static final String PLAYER_WON = "Won";
 	public static final String DRAW = "Draw";
+	public static final Color BG_BLUE = new Color(27, 91, 127);
 	public final static int BET_ZERO = 0;
 
 }

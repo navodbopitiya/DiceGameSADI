@@ -56,39 +56,11 @@ public class ResultsPanel extends JPanel{
 		balancePanel.add(Box.createRigidArea(new Dimension(0,10)));
 		balancePanel.add(balanceAmount);
 		
-		/*Won Panel*/
-		wonPanel = new JPanel();
-		wonPanel.setBackground(null);
-		wonLabel =  new JLabel("Won : ");
-		wonLabel.setForeground(Color.ORANGE);
-		wonAmount = new JLabel("0");
-		wonAmount.setForeground(Color.ORANGE);
-		wonPanel.setLayout(new BoxLayout(wonPanel,BoxLayout.LINE_AXIS));
-		wonPanel.add(wonLabel);
-		wonPanel.add(Box.createRigidArea(new Dimension(0,10)));
-		wonPanel.add(wonAmount);
-		
-		
-		/*Lost Panel*/
-		lostPanel = new JPanel();
-		lostPanel.setBackground(null);
-		lostLabel =  new JLabel("Lost : ");
-		lostLabel.setForeground(Color.ORANGE);
-		lostAmount = new JLabel("0");
-		lostAmount.setForeground(Color.ORANGE);
-		lostPanel.setLayout(new BoxLayout(lostPanel,BoxLayout.LINE_AXIS));
-		lostPanel.add(lostLabel);
-		lostPanel.add(Box.createRigidArea(new Dimension(0,10)));
-		lostPanel.add(lostAmount);
-		
 		this.add(Box.createRigidArea(new Dimension(0,80)));
 		this.add(playerNamePanel);
 		this.add(Box.createRigidArea(new Dimension(0,60)));
 		this.add(balancePanel);
 		this.add(Box.createRigidArea(new Dimension(0,30)));
-		this.add(wonPanel);
-		this.add(Box.createRigidArea(new Dimension(0,30)));
-		this.add(lostPanel);
 		
 	}
 	

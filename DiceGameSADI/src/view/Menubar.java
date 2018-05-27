@@ -20,7 +20,7 @@ public class Menubar extends JMenuBar{
 	private JMenuItem addPlayerItem;
 
 	public Menubar() {
-		/* Menu bar */
+		/* Create Menu bar */
 		playerMenu = new JMenu("Switch Player");
 		fileMenu = new JMenu("File");
 		addPlayerItem = new JMenuItem("Add Player");
@@ -44,6 +44,7 @@ public class Menubar extends JMenuBar{
 	}
 	
 	public void updatePlayers(JMenuItem[] playerItems) {
+		/*Update players in Menubar*/
 		playerMenu.removeAll();
 		for(JMenuItem playerItem : playerItems){
 			playerMenu.add(playerItem);

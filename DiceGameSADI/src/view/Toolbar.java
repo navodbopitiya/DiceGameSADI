@@ -61,6 +61,7 @@ public class Toolbar extends JToolBar {
 	}
 
 	public void updatePlayers(Collection<Player> playerList) {
+		/*Update player list*/
 		switchPlayerBox.removeAllItems();
 		for (Player player : playerList) {
 			switchPlayerBox.addItem(player);
@@ -68,8 +69,8 @@ public class Toolbar extends JToolBar {
 	}
 
 	public void changePlayer(Player player) {
+		/*Set selected player to current player*/
 		switchPlayerBox.setSelectedItem(player);
-		System.out.println("PLAYER CHANGED IN TOOLBAR");
 	}
 
 	

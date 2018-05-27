@@ -18,23 +18,27 @@ public class MainMenuController {
 
 	private GameController gameController;
 	private MainMenuView mainMenuView;
-	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int playerID = 0;
 
 	public MainMenuController(GameController gameController, MainMenuView mainMenuView) {
+		/*Overloaded Constructor for class - has references of GameController and MainMenuView*/
 		this.gameController = gameController;
 		this.mainMenuView = mainMenuView;
-
+		
+		/*add's action listener to view*/
 		this.mainMenuView.addActionListener(new MainMenuListener());
 
 	}
 	
 	public void switchToMainMenu(){
+		/*Used to switch to MainMenu from GameMenu*/
+		
 		updatePlayerTextPanel();
 		mainMenuView.switchToMainMenu();
 	}
 	
 	public void updatePlayerTextPanel(){
+		/*Updating player balances since betting and rolling may have occurred*/
 		mainMenuView.getPlayerTextPanel().removeAll();
 		for(Player player : gameController.getGameEngine().getAllPlayers()){
 			JLabel tempLabel = createTempLabel(player);
@@ -45,6 +49,9 @@ public class MainMenuController {
 	}
 	
 	private JLabel createTempLabel(Player tempPlayer) {
+		/*Helper method to remove code duplication
+		 *Creates tempLabel from player object*/
+		
 		JLabel tempLabel = new JLabel(tempPlayer.getPlayerName() + " (" + tempPlayer.getPoints() + ")");
 		tempLabel.setHorizontalAlignment(JLabel.CENTER);
 		tempLabel.setForeground(Color.ORANGE);
@@ -61,11 +68,11 @@ public class MainMenuController {
 			if (actionCommand.equals(GameConstants.PLAY_BUTTON_ACTION)) {
 				/* Play Button Action */
 
-				/* Check if a player has been entered - TODO */
-				if (playerList.isEmpty()) {
+				/* Check if a player has been entered */
+				if (gameController.getGameEngine().getAllPlayers().isEmpty()) {
 					mainMenuView.showErrorMessage("Please enter a player first");
 				} else {
-					/* Open next Window */
+					/* Open Game Window */
 					mainMenuView.setVisible(false);
 					gameController.startGame();
 				}
@@ -74,7 +81,7 @@ public class MainMenuController {
 				/* Add Player Button Action */
 
 				String playerName = null;
-				/* Check for empty textboxes */
+				/* Check if player text field is empty */
 				if (!mainMenuView.getPlayerNameText().isEmpty()) {
 					playerName = mainMenuView.getPlayerNameText();
 				} else {
@@ -83,9 +90,10 @@ public class MainMenuController {
 				}
 
 				int initialPoints;
+				/*Check if points text field is empty */
 				if (!mainMenuView.getInitialPointsString().isEmpty()) {
+					/*Check if numeric*/
 					if (GameConstants.PATTERN.matcher(mainMenuView.getInitialPointsString()).matches()) {
-						// Check if value is numeric
 						initialPoints = Integer.parseInt(mainMenuView.getInitialPointsString());
 					} else {
 						initialPoints = 0;
@@ -99,7 +107,7 @@ public class MainMenuController {
 				boolean pointsValid = true;
 
 				/* Check if PlayerName exists in the Player Array List */
-				for (Player checkPlayer : playerList) {
+				for (Player checkPlayer : gameController.getGameEngine().getAllPlayers()) {
 					if (playerName.compareToIgnoreCase(checkPlayer.getPlayerName()) == 0) {
 						/* Player name already exists */
 						nameExists = true;
@@ -116,7 +124,6 @@ public class MainMenuController {
 
 					Player tempPlayer = new SimplePlayer(Integer.toString(playerID), playerName, initialPoints);
 					gameController.getGameEngine().addPlayer(tempPlayer);
-					playerList.add(tempPlayer);
 					playerID++;
 
 					/* Display names in playerPanel */

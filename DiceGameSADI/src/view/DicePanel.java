@@ -1,10 +1,9 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagLayout;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,12 +31,11 @@ public class DicePanel extends JPanel {
 	private JLabel playerDiceTwoLabel;
 	private JLabel playerDiceOneImage;
 	private JLabel playerDiceTwoImage;
-	
-	/*Result Bar*/
+
+	/* Result Bar */
 	private JPanel resultBar;
 	private JLabel resultBarLabel;
-	
-	
+
 	/* House Panel */
 	private JPanel houseDicePairPanel;
 	private JPanel houseDiceOnePanel;
@@ -56,32 +54,31 @@ public class DicePanel extends JPanel {
 		playerDiceOneImage = new JLabel();
 		playerDiceTwoImage = new JLabel();
 		playerDicePairPanel = createDicePanel(playerDicePairPanel, playerDiceOnePanel, playerDiceTwoPanel,
-				playerDiceOneImage, playerDiceTwoImage, playerDiceOneLabel, playerDiceTwoLabel,GameConstants.PLAYER_TEXT);
+				playerDiceOneImage, playerDiceTwoImage, playerDiceOneLabel, playerDiceTwoLabel,
+				GameConstants.PLAYER_TEXT);
 
 		/* Create ResultBar */
 		resultBar = new JPanel();
-		resultBar.setLayout(new BoxLayout(resultBar,BoxLayout.X_AXIS));
+		resultBar.setLayout(new BoxLayout(resultBar, BoxLayout.X_AXIS));
 		resultBarLabel = new JLabel(GameConstants.DEFAULT_RESULT_STRING);
-		resultBarLabel.setFont(new Font("Arial",Font.BOLD,30));
-		
+		resultBarLabel.setFont(new Font("Arial", Font.BOLD, 30));
+
 		resultBar.add(Box.createHorizontalGlue());
 		resultBar.add(resultBarLabel);
 		resultBar.add(Box.createHorizontalGlue());
-		
-		
+
 		/* Create House Panel */
 		houseDiceOneImage = new JLabel();
 		houseDiceTwoImage = new JLabel();
 		houseDicePairPanel = createDicePanel(houseDicePairPanel, houseDiceOnePanel, houseDiceTwoPanel,
-				houseDiceOneImage, houseDiceTwoImage, houseDiceOneLabel, houseDiceTwoLabel,GameConstants.HOUSE_TEXT);
-		
-		
+				houseDiceOneImage, houseDiceTwoImage, houseDiceOneLabel, houseDiceTwoLabel, GameConstants.HOUSE_TEXT);
+
 		this.add(Box.createGlue());
 		this.add(playerDicePairPanel);
 		this.add(Box.createGlue());
-		this.add(Box.createRigidArea(new Dimension(0,10)));
+		this.add(Box.createRigidArea(new Dimension(0, 10)));
 		this.add(resultBar);
-		this.add(Box.createRigidArea(new Dimension(0,10)));
+		this.add(Box.createRigidArea(new Dimension(0, 10)));
 		this.add(Box.createGlue());
 		this.add(houseDicePairPanel);
 		this.add(Box.createGlue());
@@ -92,15 +89,15 @@ public class DicePanel extends JPanel {
 		dicePairPanel = new JPanel();
 		dicePairPanel.setLayout(new BoxLayout(dicePairPanel, BoxLayout.LINE_AXIS));
 		dicePairPanel.setBackground(null);
-		
-		/* Owner Text Panel*/
+
+		/* Owner Text Panel */
 		JPanel ownerPanel = new JPanel();
 		ownerPanel.setBackground(null);
-		JLabel ownerTextLabel = new JLabel(ownerText+" Dice");
+		JLabel ownerTextLabel = new JLabel(ownerText + " Dice");
 		ownerTextLabel.setForeground(Color.ORANGE);
 		ownerPanel.add(ownerTextLabel);
 		ownerPanel.setLayout(new BoxLayout(ownerPanel, BoxLayout.PAGE_AXIS));
-		
+
 		/* Dice One Panel */
 		diceOnePanel = new JPanel();
 		diceOnePanel.setBackground(null);
@@ -123,7 +120,7 @@ public class DicePanel extends JPanel {
 
 		updateDiceUI(null, diceOneImage, diceTwoImage);
 
-		/*Dice Pair Panel */
+		/* Dice Pair Panel */
 		dicePairPanel.add(ownerPanel);
 		dicePairPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 		dicePairPanel.add(diceOnePanel);
@@ -135,6 +132,10 @@ public class DicePanel extends JPanel {
 
 	public void updateDiceUI(DicePair dicePair, JLabel diceOneImage, JLabel diceTwoImage) {
 		if (dicePair == null) {
+			/*
+			 * If dicePair is null, 
+			 * then create a dicePair for dice1 - 0 and dice2 - 0
+			 */
 			dicePair = new DicePairImpl(0, 0, 6);
 		}
 		String pathToDiceImageOne = "resources/dice" + dicePair.getDice1() + ".png";
@@ -149,17 +150,16 @@ public class DicePanel extends JPanel {
 			this.repaint();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
-	public void updateResultBar(String resultText,String currentPlayerName){
-		resultBarLabel.setText(currentPlayerName+" "+resultText);
+
+	public void updateResultBar(String resultText, String currentPlayerName) {
+		resultBarLabel.setText(currentPlayerName + " " + resultText);
 	}
-	
-	public void updateResultBar(){
+
+	public void updateResultBar() {
 		resultBarLabel.setText(GameConstants.DEFAULT_RESULT_STRING);
 	}
 
@@ -170,12 +170,12 @@ public class DicePanel extends JPanel {
 	public JLabel getPlayerDiceTwoImage() {
 		return this.playerDiceTwoImage;
 	}
-	
-	public JLabel getHouseDiceOneImage(){
+
+	public JLabel getHouseDiceOneImage() {
 		return this.houseDiceOneImage;
 	}
-	
-	public JLabel getHouseDiceTwoImage(){
+
+	public JLabel getHouseDiceTwoImage() {
 		return this.houseDiceTwoImage;
 	}
 }

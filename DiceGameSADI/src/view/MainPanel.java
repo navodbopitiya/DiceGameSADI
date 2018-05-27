@@ -30,6 +30,7 @@ public class MainPanel extends JSplitPane{
 	}
 	
 	public void changePlayer(Player player){
+		/*When player has no roll result*/
 		resultsPanel.setPlayerName(player.getPlayerName());
 		resultsPanel.setBalance(Integer.toString(player.getPoints()));
 		dicePanel.updateDiceUI(player.getRollResult(),dicePanel.getPlayerDiceOneImage(), dicePanel.getPlayerDiceTwoImage());
@@ -37,6 +38,7 @@ public class MainPanel extends JSplitPane{
 	}
 	
 	public void changePlayer(Player player,String resultText){
+		/*When player has a current roll result*/
 		changePlayer(player);
 		dicePanel.updateResultBar(resultText,player.getPlayerName());
 	}
@@ -55,10 +57,12 @@ public class MainPanel extends JSplitPane{
 	}
 	
 	public void displayResultBar(String resultText,String currentPlayerName){
+		/*Display result of roll - When current player has a bet for the round*/
 		dicePanel.updateResultBar(resultText,currentPlayerName);
 	}
 	
 	public void displayResultBar(){
+		/*Default result display - When current player doesn't have a bet for that round*/
 		dicePanel.updateResultBar();
 	}
 

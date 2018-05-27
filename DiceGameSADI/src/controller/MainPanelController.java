@@ -19,8 +19,13 @@ public class MainPanelController {
 
 	public void changePlayer(Player player) {
 		if (player.getRollResult() == null) {
+			/* When player doesn't have a roll result */
 			mainPanel.changePlayer(player);
 		} else if (gameController.getHouseResult() != null) {
+			/*
+			 * When player has a roll result, calculate and send result using
+			 * stored house dice result
+			 */
 			mainPanel.changePlayer(player, GameHelperMethods.calculateResults(gameController.getHouseResult(),
 					gameController.getCurrentPlayer().getRollResult()));
 		}
