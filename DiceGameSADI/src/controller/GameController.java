@@ -3,6 +3,7 @@ package controller;
 import javax.swing.SwingUtilities;
 
 import model.GameEngineImpl;
+import model.interfaces.DicePair;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
 import view.GameEngineCallbackGUI;
@@ -21,6 +22,7 @@ public class GameController {
 	private ToolbarController toolbarController;
 	private MainPanelController mainPanelController;
 	private StatusbarController statusBarController;
+	private DicePair houseResult;
 
 	public GameEngine getGameEngine() {
 		return gameEngine;
@@ -53,14 +55,14 @@ public class GameController {
 			mainPanelController = new MainPanelController(gameController, gameMenu.getMainPanel());
 			statusBarController = new StatusbarController(gameController, gameMenu.getStatusBar());
 			gameEngine.addGameEngineCallback(new GameEngineCallbackImpl());
-			gameEngine.addGameEngineCallback(new GameEngineCallbackGUI(mainPanelController,statusBarController));
+			gameEngine.addGameEngineCallback(new GameEngineCallbackGUI(mainPanelController, statusBarController,gameController));
 
 		} else {
 			// When player goes back to add more players
 			menuBarController.updatePlayers();
 			toolbarController.updatePlayers();
 			statusBarController.updateGameDetails();
-			statusBarController.updateCurrentPlayerDetails(this.currentPlayer);
+			statusBarController.updateCurrentPlayerDetails();
 			gameMenu.setVisible(true);
 
 		}
@@ -78,18 +80,21 @@ public class GameController {
 		// For All player's that have a bet, roll
 		for (final Player playerToBeRolled : gameEngine.getAllPlayers()) {
 			if (playerToBeRolled.getBet() > 0) {
-				// If the player has a bet, roll
+				/* If the player has a bet, roll*/
 				gameEngine.rollPlayer(playerToBeRolled, 1, 1000, 100);
 				checkIfAnyPlayerHasBet = true;
+			} else {
+				/*
+				 * If player doesn't have a bet, reset his previous Roll Result
+				 * so that view will display blank dice
+				 */
+				playerToBeRolled.setRollResult(null);
 			}
 		}
 		if (checkIfAnyPlayerHasBet) {
-			// After all player's have finished rolling, roll house
+			setHouseResult(null);
+			/*After all player's have finished rolling, roll house*/
 			gameEngine.rollHouse(1, 100, 20);
-			//Update Status Bar and ResultsPanel
-			updateStatusBar();
-			updatePlayerResults();
-			
 
 		} else {
 			gameMenu.getToolbar().showErrorMessage("Please place a bet for a player first");
@@ -101,17 +106,14 @@ public class GameController {
 		currentPlayer = playerToChange;
 		mainPanelController.changePlayer(this.currentPlayer);
 		toolbarController.changePlayer(this.currentPlayer);
-		statusBarController.updateCurrentPlayerDetails(this.currentPlayer);
+		statusBarController.updateCurrentPlayerDetails();
 		System.out.println("Switched current player to: " + currentPlayer.getPlayerName());
 
 	}
-	
-	public void updateStatusBar(){
-		statusBarController.updateCurrentPlayerDetails(this.currentPlayer);
-	}
-	
-	public void updatePlayerResults(){
-		mainPanelController.updatePlayerResults(this.currentPlayer);
+
+	public void updateStatusBar() {
+		statusBarController.updateCurrentPlayerDetails();
+		statusBarController.updateGameDetails();
 	}
 
 	public Player getCurrentPlayer() {
@@ -121,10 +123,18 @@ public class GameController {
 	public void switchToMainMenu() {
 		gameMenu.getFrame().setVisible(false);
 		System.out.println("YOU ARE IN SWITCHING");
-		mainMenu.getFrame().setVisible(true);
+		mainMenuController.switchToMainMenu();
 	}
 
 	public GameMenu getGameMenu() {
 		return gameMenu;
+	}
+
+	public DicePair getHouseResult() {
+		return houseResult;
+	}
+
+	public void setHouseResult(DicePair houseResult) {
+		this.houseResult = houseResult;
 	}
 }

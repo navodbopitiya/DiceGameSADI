@@ -11,13 +11,13 @@ public class StatusbarController {
 	public StatusbarController(GameController gameController, Statusbar statusBar){
 		this.gameController = gameController;
 		this.statusBar = statusBar;
-		updateCurrentPlayerDetails(gameController.getCurrentPlayer());
+		updateCurrentPlayerDetails();
 		updateGameDetails();
 	}
 	
-	public void updateCurrentPlayerDetails(Player currentPlayer){
-		statusBar.setCurrentBet(currentPlayer.getBet());
-		statusBar.setCurrentBalance(currentPlayer.getPoints());
+	public void updateCurrentPlayerDetails(){
+		statusBar.setCurrentBet(gameController.getCurrentPlayer().getBet());
+		statusBar.setCurrentBalance(gameController.getCurrentPlayer().getPoints());
 	}
 	
 	public void updateGameDetails(){

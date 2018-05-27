@@ -156,5 +156,9 @@ public class MainMenuView extends JFrame {
 		playerTextField.setText("");
 		initialPointsTextField.setText("");
 	}
+	
+	public void switchToMainMenu(){
+		this.setVisible(true);
+	}
 
 }

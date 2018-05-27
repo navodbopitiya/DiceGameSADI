@@ -1,29 +1,41 @@
 package controller;
 
+import model.GameHelperMethods;
 import model.interfaces.DicePair;
 import model.interfaces.Player;
 import view.MainPanel;
 
 public class MainPanelController {
-	
+
 	private GameController gameController;
 	private MainPanel mainPanel;
-	
-	public MainPanelController(GameController gameController, MainPanel mainPanel)
-	{
+
+	public MainPanelController(GameController gameController, MainPanel mainPanel) {
 		this.setGameController(gameController);
 		this.mainPanel = mainPanel;
 		changePlayer(gameController.getCurrentPlayer());
-		
+
 	}
-	
-	public void changePlayer(Player player){
-		mainPanel.changePlayer(player);
+
+	public void changePlayer(Player player) {
+		if (player.getRollResult() == null) {
+			mainPanel.changePlayer(player);
+		} else if (gameController.getHouseResult() != null) {
+			mainPanel.changePlayer(player, GameHelperMethods.calculateResults(gameController.getHouseResult(),
+					gameController.getCurrentPlayer().getRollResult()));
+		}
+
 	}
-	
-	
-	public void displayDiceResults(DicePair dicePair){
-		mainPanel.displayDiceResults(dicePair);
+
+	public void displayPlayerDiceResults(DicePair dicePair) {
+		mainPanel.displayPlayerDiceResults(dicePair);
+	}
+
+	public void displayHouseDiceResults(DicePair dicePair) {
+		mainPanel.displayHouseDiceResults(dicePair);
+		mainPanel.displayResultBar(
+				GameHelperMethods.calculateResults(dicePair, gameController.getCurrentPlayer().getRollResult()),
+				gameController.getCurrentPlayer().getPlayerName());
 	}
 
 	public GameController getGameController() {
@@ -33,8 +45,8 @@ public class MainPanelController {
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
 	}
-	
-	public void updatePlayerResults(Player currentPlayer){
-		mainPanel.updatePlayerResults(currentPlayer);
+
+	public void updatePlayerResults() {
+		mainPanel.updatePlayerResults(gameController.getCurrentPlayer());
 	}
 }

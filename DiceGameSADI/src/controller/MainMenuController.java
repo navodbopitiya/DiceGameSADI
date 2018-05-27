@@ -28,7 +28,30 @@ public class MainMenuController {
 		this.mainMenuView.addActionListener(new MainMenuListener());
 
 	}
-
+	
+	public void switchToMainMenu(){
+		updatePlayerTextPanel();
+		mainMenuView.switchToMainMenu();
+	}
+	
+	public void updatePlayerTextPanel(){
+		mainMenuView.getPlayerTextPanel().removeAll();
+		for(Player player : gameController.getGameEngine().getAllPlayers()){
+			JLabel tempLabel = createTempLabel(player);
+			mainMenuView.getPlayerTextPanel().add(tempLabel);
+		}
+		mainMenuView.getPlayerTextPanel().revalidate();
+		mainMenuView.getPlayerTextPanel().repaint();
+	}
+	
+	private JLabel createTempLabel(Player tempPlayer) {
+		JLabel tempLabel = new JLabel(tempPlayer.getPlayerName() + " (" + tempPlayer.getPoints() + ")");
+		tempLabel.setHorizontalAlignment(JLabel.CENTER);
+		tempLabel.setForeground(Color.ORANGE);
+		tempLabel.setFont(new Font("Arial", Font.BOLD, 13));
+		return tempLabel;
+	}
+	
 	class MainMenuListener implements ActionListener {
 
 		@Override
@@ -91,16 +114,13 @@ public class MainMenuController {
 				/* If name doesn't exists and points are valid */
 				if (nameExists == false && pointsValid == true) {
 
-					SimplePlayer tempPlayer = new SimplePlayer(Integer.toString(playerID), playerName, initialPoints);
+					Player tempPlayer = new SimplePlayer(Integer.toString(playerID), playerName, initialPoints);
 					gameController.getGameEngine().addPlayer(tempPlayer);
 					playerList.add(tempPlayer);
 					playerID++;
 
 					/* Display names in playerPanel */
-					JLabel tempLabel = new JLabel(tempPlayer.getPlayerName() + " (" + tempPlayer.getPoints() + ")");
-					tempLabel.setHorizontalAlignment(JLabel.CENTER);
-					tempLabel.setForeground(Color.ORANGE);
-					tempLabel.setFont(new Font("Arial", Font.BOLD, 13));
+					JLabel tempLabel = createTempLabel(tempPlayer);
 
 					mainMenuView.getPlayerTextPanel().add(tempLabel);
 					mainMenuView.getPlayerTextPanel().validate();

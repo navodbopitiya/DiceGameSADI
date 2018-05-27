@@ -32,16 +32,34 @@ public class MainPanel extends JSplitPane{
 	public void changePlayer(Player player){
 		resultsPanel.setPlayerName(player.getPlayerName());
 		resultsPanel.setBalance(Integer.toString(player.getPoints()));
-		dicePanel.updateDiceUI(player.getRollResult());
+		dicePanel.updateDiceUI(player.getRollResult(),dicePanel.getPlayerDiceOneImage(), dicePanel.getPlayerDiceTwoImage());
+		dicePanel.updateResultBar();
+	}
+	
+	public void changePlayer(Player player,String resultText){
+		changePlayer(player);
+		dicePanel.updateResultBar(resultText,player.getPlayerName());
 	}
 	
 	
-	public void displayDiceResults(DicePair dicePair){
-		dicePanel.updateDiceUI(dicePair);
+	public void displayPlayerDiceResults(DicePair dicePair){
+		dicePanel.updateDiceUI(dicePair, dicePanel.getPlayerDiceOneImage(), dicePanel.getPlayerDiceTwoImage());
+	}
+	
+	public void displayHouseDiceResults(DicePair dicePair){
+		dicePanel.updateDiceUI(dicePair, dicePanel.getHouseDiceOneImage(), dicePanel.getHouseDiceTwoImage());
 	}
 	
 	public void updatePlayerResults(Player currentPlayer){
 		resultsPanel.setBalance(Integer.toString(currentPlayer.getPoints()));
+	}
+	
+	public void displayResultBar(String resultText,String currentPlayerName){
+		dicePanel.updateResultBar(resultText,currentPlayerName);
+	}
+	
+	public void displayResultBar(){
+		dicePanel.updateResultBar();
 	}
 
 }
