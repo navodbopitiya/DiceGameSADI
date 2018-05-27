@@ -25,6 +25,7 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public boolean placeBet(Player player, int bet) {
+		System.out.println("Bet Amount: "+bet);
 		return player.placeBet(bet);
 	}
 
